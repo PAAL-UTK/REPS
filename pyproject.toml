@@ -12,15 +12,20 @@ dependencies = [
     "duckdb>=1.2.2",
     "mypy>=1.15.0",
     "polars>=1.27.1",
+    "pydantic-settings>=2.8.1",
     "pydantic>=2.11.3",
     "pytest>=8.3.5",
     "pytest-cov>=6.1.1",
     "pyyaml>=6.0.2",
     "ruff>=0.11.5",
+    "typer>=0.15.2",
+    "types-pyyaml>=6.0.12.20250402",
+    "pyarrow>=19.0.1",
+    "pandas>=2.2.3",
 ]
 
 [project.scripts]
-reps = "reps:main"
+reps = "reps.cli.main:main"
 
 [build-system]
 requires = ["hatchling"]
