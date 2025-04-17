@@ -20,3 +20,8 @@ manuscripts/
 
 # logs
 log/
+
+# coverage
+.coverage
+coverage.xml
+
