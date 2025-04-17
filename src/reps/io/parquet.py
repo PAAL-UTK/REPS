@@ -1,22 +1,24 @@
 import polars as pl
 from pathlib import Path
-from datetime import datetime, timezone  # noqa: F401  (will be useful later)
+from datetime import datetime # noqa: F401  (will be useful later)
 from ..domain.models import LabelSegment  # IMURecord not used here → remove
 
-_TS_FMT = "%Y-%m-%d %H:%M:%S%.f"
+#_TS_FMT = "%Y-%m-%d %H:%M:%S%.f"
 
 
 def _read_parquet(path: Path) -> pl.DataFrame:
-    return (
-        pl.read_parquet(path)
-        .with_columns(
+    df = pl.read_parquet(path)
+
+    if "Timestamp" in df.columns:
+        df = df.with_columns(
             pl.col("Timestamp")
-            .str.strptime(pl.Datetime, _TS_FMT)  # naive → datetime
-            .dt.replace_time_zone("UTC")  # mark as UTC
+            .str.slice(0, 26)  # trim from "2016-02-17T11:25:00.0000000" → "2016-02-17T11:25:00.000000"
+            .str.to_datetime(time_zone="US/Eastern")
             .alias("ts")
-        )
-        .drop("Timestamp")
-    )
+        ).drop("Timestamp")
+
+    return df
+
 
 
 def load_acc(path: Path) -> pl.DataFrame:
