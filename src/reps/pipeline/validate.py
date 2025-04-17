@@ -1,4 +1,5 @@
 """Warehouse‑sanity rules and runner."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -9,14 +10,17 @@ import polars as pl
 
 DB = Path("dwh/reps.duckdb")  # adjust if your DB lives elsewhere
 
+
 class ValidationError(Exception):
     """Raised when a rule fails."""
 
+
 def _ensure_views():
     if "tiny" in str(DB):
-        return  # skip view creation in tests 
+        return  # skip view creation in tests
     con = duckdb.connect(DB, read_only=False)
-    con.execute("""
+    con.execute(
+        """
         CREATE OR REPLACE VIEW imu AS
         SELECT
             id AS subject_id,
@@ -48,8 +52,10 @@ def _ensure_views():
             exercise_id AS label,
             'unstructured' AS session
         FROM labels_unstructured;
-    """)
+    """
+    )
     con.close()
+
 
 def _q(sql: str, read_only: bool = True) -> Union[pl.DataFrame, pl.Series]:
     """Execute *sql* against the DuckDB warehouse and return a Polars object.
@@ -63,7 +69,9 @@ def _q(sql: str, read_only: bool = True) -> Union[pl.DataFrame, pl.Series]:
     finally:
         con.close()
 
+
 # ───────────────────────── V‑1: trials must start/end NULL ─────────────────────────
+
 
 def check_null_padding() -> None:
     sql = """
@@ -88,9 +96,13 @@ def check_null_padding() -> None:
     """
     bad = _q(sql)
     if bad.shape[0]:
-        raise ValidationError("Labels present at start/end of recording:\n" + bad.__repr__())
+        raise ValidationError(
+            "Labels present at start/end of recording:\n" + bad.__repr__()
+        )
+
 
 # ──────────────────────── V‑2: session boundaries separate ────────────────────────
+
 
 def check_session_gap() -> None:
     sql = """
@@ -112,9 +124,11 @@ def check_session_gap() -> None:
     if bad.shape[0]:
         raise ValidationError("Structured/unstructured overlap:\n" + bad.__repr__())
 
+
 # ───────────────────────── V‑3: sensor physical limits ─────────────────────────
 
 # gyro saturates at 2000 but float values slightly exceed 2000 so limit set to 2001
+
 
 def check_physical_limits() -> None:
     sql = """
@@ -136,7 +150,9 @@ def check_physical_limits() -> None:
             "Sensor saturation (>8 g or >2000 °/s):\n" + bad.__repr__()
         )
 
+
 # ──────────────────────────────── Runner ────────────────────────────────
+
 
 def run() -> list[str]:
     """Run all validators; return list of error strings (empty if clean)."""

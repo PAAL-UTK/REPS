@@ -7,6 +7,7 @@ from rich.console import Console
 app = typer.Typer(help="REPS CLI")
 console = Console()
 
+
 @app.command()
 def ingest(
     subject_id: str = typer.Option(
@@ -32,11 +33,13 @@ def ingest(
     else:
         ingest_subject(subject_id)
 
+
 # ──────────────────────────────────────────────────────────────
 # NEW: data‑warehouse validation
 # $ reps validate
 # exits 0 on success, 1 on failure
 # ──────────────────────────────────────────────────────────────
+
 
 @app.command("validate")
 def validate_data() -> None:
@@ -48,9 +51,11 @@ def validate_data() -> None:
             console.print(err)
         raise typer.Exit(code=1)
     console.print("[green]Warehouse looks clean.[/green]")
- 
+
+
 def main():
     app()
+
 
 if __name__ == "__main__":
     main()

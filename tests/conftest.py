@@ -17,6 +17,7 @@ def sample_parquet_path(tmp_path: Path) -> Path:
     df.write_parquet(path)
     return path
 
+
 @pytest.fixture
 def runner() -> CliRunner:
     return CliRunner()
