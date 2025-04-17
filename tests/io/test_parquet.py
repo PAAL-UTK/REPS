@@ -3,6 +3,7 @@ from reps.io.parquet import load_acc
 from reps.io.parquet import _read_parquet
 import polars as pl
 
+
 def test_loaders_roundtrip(tmp_path: Path):
     # create tiny dummy DataFrame → parquet → loader → shape equals
     import polars as pl
@@ -20,6 +21,7 @@ def test_loaders_roundtrip(tmp_path: Path):
     out = load_acc(fn)
     assert out.shape == (1, 4)
 
+
 def test_read_parquet_parses_timestamp(sample_parquet_path):
     df = _read_parquet(sample_parquet_path)
 
@@ -31,4 +33,3 @@ def test_read_parquet_parses_timestamp(sample_parquet_path):
     assert df["ts"].dtype == pl.Datetime("us", "US/Eastern")
     assert df["ts"][0].year == 2016
     assert df["ts"][0].hour == 11
-
