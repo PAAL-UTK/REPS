@@ -2,6 +2,7 @@
 import pytest
 import polars as pl
 from pathlib import Path
+from typer.testing import CliRunner
 
 
 @pytest.fixture
@@ -15,3 +16,7 @@ def sample_parquet_path(tmp_path: Path) -> Path:
     path = tmp_path / "sample.parquet"
     df.write_parquet(path)
     return path
+
+@pytest.fixture
+def runner() -> CliRunner:
+    return CliRunner()

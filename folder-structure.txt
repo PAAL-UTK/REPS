@@ -498,20 +498,88 @@
 │           ├── REPS-142_gyro.parquet
 │           ├── REPS-143_gyro.parquet
 │           └── REPS-144_gyro.parquet
-├── manuscripts
-│   ├── citations
-│   │   ├── Conger, 2016.pdf
-│   │   ├── Conger, 2019.pdf
-│   │   ├── Montoye, 2019.pdf
-│   │   └── Steeves, 2019.pdf
-│   ├── edits
-│   │   └── MSSE_RTACC-Manuscript_v1.0_SAC edits (1).docx
-│   └── MSSE_REPS_v.1.0.docx
+├── dwh
+│   └── reps.duckdb
 ├── src
 │   └── reps
+│       ├── cli
+│       │   ├── __pycache__
+│       │   │   ├── __init__.cpython-313.pyc
+│       │   │   └── main.cpython-313.pyc
+│       │   ├── __init__.py
+│       │   └── main.py
+│       ├── domain
+│       │   ├── __pycache__
+│       │   │   ├── __init__.cpython-313.pyc
+│       │   │   └── models.cpython-313.pyc
+│       │   ├── exercise_map.yaml
+│       │   ├── imu_record.py
+│       │   ├── __init__.py
+│       │   ├── label.py
+│       │   ├── models.py
+│       │   └── session.py
+│       ├── io
+│       │   ├── __pycache__
+│       │   │   ├── __init__.cpython-313.pyc
+│       │   │   └── parquet.cpython-313.pyc
+│       │   ├── duckdb.py
+│       │   ├── __init__.py
+│       │   └── parquet.py
+│       ├── ml
+│       │   ├── cv.py
+│       │   ├── datasets.py
+│       │   ├── __init__.py
+│       │   └── models.py
+│       ├── pipeline
+│       │   ├── __pycache__
+│       │   │   ├── ingest.cpython-313.pyc
+│       │   │   └── __init__.cpython-313.pyc
+│       │   ├── ingest.py
+│       │   ├── __init__.py
+│       │   ├── transform.py
+│       │   └── validate.py
+│       ├── processing
+│       │   ├── __pycache__
+│       │   │   ├── __init__.cpython-313.pyc
+│       │   │   └── resample.cpython-313.pyc
+│       │   ├── clean.py
+│       │   ├── features.py
+│       │   ├── __init__.py
+│       │   ├── resample.py
+│       │   └── segment.py
+│       ├── __pycache__
+│       │   ├── config.cpython-313.pyc
+│       │   └── __init__.cpython-313.pyc
+│       ├── utils
+│       │   ├── __init__.py
+│       │   └── logging.py
+│       ├── config.py
 │       └── __init__.py
+├── tests
+│   ├── io
+│   │   ├── __pycache__
+│   │   │   └── test_parquet.cpython-313-pytest-8.3.5.pyc
+│   │   └── test_parquet.py
+│   ├── ml
+│   ├── pipeline
+│   │   ├── __pycache__
+│   │   │   └── test_ingest.cpython-313-pytest-8.3.5.pyc
+│   │   └── test_ingest.py
+│   ├── processing
+│   │   ├── __pycache__
+│   │   │   └── test_resample.cpython-313-pytest-8.3.5.pyc
+│   │   └── test_resample.py
+│   ├── __pycache__
+│   │   ├── conftest.cpython-313-pytest-8.3.5.pyc
+│   │   └── test_smoke.cpython-313-pytest-8.3.5.pyc
+│   ├── conftest.py
+│   └── test_smoke.py
+├── coverage.xml
+├── exercise-list.txt
+├── folder-structure.txt
 ├── pyproject.toml
-└── README.md
+├── README.md
+└── uv.lock
 
-13 directories, 501 files
+33 directories, 549 files
 
