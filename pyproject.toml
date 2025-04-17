@@ -1,0 +1,17 @@
+[project]
+name = "reps"
+version = "0.1.0"
+description = "Resistance Exercise Pattern Sensing: Human activity recognition of resistance training exercise via accelerometer and gyroscope signals"
+readme = "README.md"
+authors = [
+    { name = "MelaroJ", email = "melarojake@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = []
+
+[project.scripts]
+reps = "reps:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
